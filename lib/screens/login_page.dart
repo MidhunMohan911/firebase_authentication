@@ -33,6 +33,16 @@ class _LoginPageState extends State<LoginPage> {
     ));
   }
 
+  void buildGoogleSignIn(AuthController authProvider) async {
+    final msg = await authProvider.googleSignIn();
+    if (msg == '') return;
+    print(msg);
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(msg),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -137,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                           width: 40,
                         ),
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () => buildGoogleSignIn(authController),
                             child: const Text(
                               'Sign in with google',
                               style: TextStyle(color: Colors.black),

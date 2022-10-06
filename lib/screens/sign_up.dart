@@ -35,6 +35,16 @@ class _SignUpPageState extends State<SignUpPage> {
     ));
   }
 
+  void buildGoogleSignUp(AuthController authProvider) async {
+    final msg = await authProvider.googleSignUp();
+    if (msg == '') return;
+    print(msg);
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(msg),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -124,7 +134,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               TextButton(
                                   onPressed: () {},
                                   child: const Text(
-                                    'Sign in with Apple',
+                                    'Sign up with Apple',
                                     style: TextStyle(color: Colors.white),
                                   )),
                             ],
@@ -146,9 +156,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                 width: 40,
                               ),
                               TextButton(
-                                  onPressed: () {},
+                                  onPressed: () =>buildGoogleSignUp(authController),
                                   child: const Text(
-                                    'Sign in with google',
+                                    'Sign up with google',
                                     style: TextStyle(color: Colors.black),
                                   )),
                             ],
